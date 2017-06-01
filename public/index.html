@@ -6,10 +6,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./reset.css">
     <link rel="stylesheet" href="./styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="sty lesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   </head>
   <body>
-    <header>Garage Door</header>
+    <header>
+      <img src="./assets/icon.svg" height="50px" />
+      <h2>... a place to store your junk</h2>
+    </header>
+
+    <button id="garage-button">Open Garage</button>
+
+    <div class="add-new">
+      <p>Add Item</p>
+      <label for="name">Name:
+        <input type="text" class="name-input" name="name" />
+      </label>
+      <label for="reason">Reason:
+        <input type="text" class="reason-input" name="reason" />
+      </label>
+      <label id="cleanliness" for="cleanliness">Cleanliness:
+        <select>
+          <option value="Sparkling">Sparkling</option>
+          <option value="Dusty">Dusty</option>
+          <option value="Rancid">Rancid</option>
+        </select>
+      </label>
+      <input type="submit" class="save-item" value="Store Item" />
+    </div>
+    <p id="error"></p>
+
+    <div id="garage-count">
+      <p class="total-items"></p>
+      <p class="total-sparkling"></p>
+      <p class="total-dusty"></p>
+      <p class="total-rancid"></p>
+    </div>
+
+    <ul id="garage-items">
+    </ul>
 
     <script type="text/javascript" src="./index.js"></script>
    </body>
