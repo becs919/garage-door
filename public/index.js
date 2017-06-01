@@ -1,10 +1,14 @@
 const $garageButton = $('#garage-button')
 const $garageItems = $('#garage-items')
+const $garageCount = $('#garage-count')
 
 const fetchItems = () => {
   fetch('/api/v1/items')
   .then(response => response.json())
-  .then(items => appendItems(items))
+  .then(items => {
+    appendItems(items);
+    appendCount(items);
+  })
   .catch(error => console.log(error))
 };
 
