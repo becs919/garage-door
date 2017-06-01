@@ -64,10 +64,16 @@ app.delete('/api/v1/items/:id', (request, response) => {
 });
 
 app.post('/api/v1/items', (request, response) => {
-  const { name, reason, cleanliness } = request.body
+  const name = request.body.name;
+  const reason = request.body.reason;
+  const cleanliness = request.body.cleanliness;
 
-  if (!name && !cleanliness && reason) {
-    response.status(422).send({ error: 'You are missing data' });
+  if (!name) {
+    response.status(422).send({ error: 'You are missing data!' });
+  } else if (!reason) {
+    response.status(422).send({ error: 'You are missing data!' });
+  } else if (!cleanliness) {
+    response.status(422).send({ error: 'You are missing data!' });
   } else {
     database('items').insert({ name, reason, cleanliness })
     .then(() => {

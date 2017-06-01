@@ -4,9 +4,9 @@ exports.seed = function(knex, Promise) {
     .then(() => {
       return Promise.all([
           knex('items').insert([
-            { name: 'TESTBike', reason: 'Flat tire', cleanliness: 'Dusty' },
-            { name: 'TESTCar', reason: 'Keep it safe', cleanliness: 'Sparkling' },
-            { name: 'TESTOld Clothes', reason: 'Too lazy to take to goodwill', cleanliness: 'Rancid' }
+            { id: 1 , name: 'TESTBike', reason: 'Flat tire', cleanliness: 'Dusty' },
+            { id: 2, name: 'TESTCar', reason: 'Keep it safe', cleanliness: 'Sparkling' },
+            { id: 3, name: 'TESTOld Clothes', reason: 'Too lazy to take to goodwill', cleanliness: 'Rancid' }
           ])
       ])
     })
