@@ -23,8 +23,7 @@ const postItem = (name, reason, cleanliness) => {
     headers: {'Content-type': 'application/json'},
     body: JSON.stringify({ name, reason, cleanliness })
   })
-  .then(response => {
-    if(response.okay) {}
+  .then(() => {
     fetchItems();
   })
   .catch(error => console.error(error))
@@ -116,5 +115,12 @@ $('.save-item').on('click', event => {
   const $reason = $('.reason-input').val()
   const $cleanliness = $('#cleanliness option:selected' ).text()
 
-  postItem($name, $reason, $cleanliness)
+  if ($name.length <= 0) {
+    console.log('no lanem');
+    $('#error').text('Error: No Name')
+  } else if ( $reason.length <= 0) {
+    $('#error').text('Error: reason')
+  } else {
+    postItem($name, $reason, $cleanliness)
+  }
 })
