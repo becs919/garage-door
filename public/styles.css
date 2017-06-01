@@ -1,7 +1,6 @@
 body {
   margin: 0 auto;
   background: white;
-  /*color: slategray;*/
   font-family: 'Raleway', sans-serif;
 }
 
@@ -56,7 +55,7 @@ h2 {
 
 #garage-items {
   margin: 0 auto;
-  margin-top: 80px;
+  margin-top: 10px;
   width: 80%;
 }
 
@@ -95,7 +94,7 @@ li p {
   outline: none;
 }
 
-.add-new .save-item {
+.add-new .save-item, .order-button, .date-button {
   display: flex;
   margin: 20px auto;
   padding: 10px;
@@ -107,13 +106,17 @@ li p {
   color: white;
 }
 
-.add-new .save-item:active {
+.sorting {
+  display: flex;
+}
+
+.add-new .save-item:active, .order-button:active, .date-button:active {
 	transform: translate(0px,2px);
 	border-bottom: 1px solid white;
   transition: all 0.1s;
 }
 
-.add-new .save-item:hover {
+.add-new .save-item:hover, .order-button:hover, .date-button:hover {
   background-color: lightgray;
   color: black;
 }

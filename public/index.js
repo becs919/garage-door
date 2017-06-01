@@ -17,6 +17,26 @@ const fetchItems = () => {
   .catch(error => console.error(error))
 };
 
+const fetchItemsABC = () => {
+  fetch('/api/v1/items/asc')
+  .then(response => response.json())
+  .then(items => {
+    appendItems(items);
+    appendCount(items);
+  })
+  .catch(error => console.error(error))
+};
+
+const fetchItemsDate = () => {
+  fetch('/api/v1/items/date')
+  .then(response => response.json())
+  .then(items => {
+    appendItems(items);
+    appendCount(items);
+  })
+  .catch(error => console.error(error))
+};
+
 const postItem = (name, reason, cleanliness) => {
   fetch('/api/v1/items', {
     method: 'POST',
@@ -30,6 +50,7 @@ const postItem = (name, reason, cleanliness) => {
 };
 
 const closeGarage = () => {
+  $('.sorting').hide();
   $('#error').text('')
   $addNew.hide();
   $garageCount.hide();
@@ -39,6 +60,7 @@ const closeGarage = () => {
 }
 
 const openGarage = () => {
+  $('.sorting').show();
   $addNew.show();
   $garageCount.show();
   $garageButton.removeClass('closed');
@@ -58,15 +80,7 @@ const appendItems = (items) => {
     name.innerText = item.name;
     name.dataset.itemId = item.id;
 
-    let reason = document.createElement('p');
-    reason.innerText = item.reason;
-
-    let cleanliness = document.createElement('p');
-    cleanliness.innerText = item.cleanliness;
-
     itemElement.appendChild(name);
-    itemElement.appendChild(reason);
-    itemElement.appendChild(cleanliness);
     itemFragments.appendChild(itemElement);
   });
 
@@ -130,3 +144,13 @@ $('.save-item').on('click', event => {
     clearForm();
   }
 });
+
+$('.order-button').on('click', event => {
+  // janky - need to fix. ABC all new but not seeded data
+  fetchItemsABC();
+})
+
+$('.date-button').on('click', event => {
+  // janky - need to fix. ABC all new but not seeded data
+  fetchItemsDate();
+})

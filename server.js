@@ -29,6 +29,24 @@ app.get('/api/v1/items', (request, response) => {
     });
 });
 
+// janky - need to fix. not tested
+app.get('/api/v1/items/asc', (request, response) => {
+    database('items').orderBy('name', 'asc').select()
+    .then(item => response.status(200).json(item))
+    .catch((error) => {
+      response.status(404).send('no items in garage', error);
+    });
+});
+
+// janky - need to fix. not tested
+app.get('/api/v1/items/date', (request, response) => {
+    database('items').orderBy('created_at', 'asc').select()
+    .then(item => response.status(200).json(item))
+    .catch((error) => {
+      response.status(404).send('no items in garage', error);
+    });
+});
+
 app.get('/api/v1/items/:id', (request, response) => {
   database('items').where('id', request.params.id).select()
     .then(item => response.status(200).json(item))
