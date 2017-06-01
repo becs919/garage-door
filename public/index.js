@@ -1,6 +1,10 @@
 const $garageButton = $('#garage-button')
 const $garageItems = $('#garage-items')
 const $garageCount = $('#garage-count')
+const $totalItems = $('.total-items')
+const $totalSparkling = $('.total-sparkling')
+const $totalDusty = $('.total-dusty')
+const $totalRancid = $('.total-rancid')
 
 const fetchItems = () => {
   fetch('/api/v1/items')
@@ -26,6 +30,7 @@ const openGarage = () => {
 
 const appendItems = (items) => {
   $garageItems.html('');
+
   let itemFragments = document.createDocumentFragment();
 
   items.forEach(item => {
@@ -49,6 +54,32 @@ const appendItems = (items) => {
 
   $garageItems.append(itemFragments);
 };
+
+const appendCount = (items) => {
+  // $garageCount.empty();
+
+  let count = 0;
+  let sparkling = 0;
+  let dusty = 0;
+  let rancid = 0;
+
+  items.forEach(item => {
+
+    count++
+    if (item.cleanliness === 'Sparkling') {
+      return sparkling++
+    } else if (item.cleanliness === 'Dusty') {
+      return dusty++
+    } else if (item.cleanliness === 'Rancid') {
+      return rancid++
+    }
+  })
+
+  $totalItems.text(`Total Items: ${count}`)
+  $totalSparkling.text(`Sparkling: ${sparkling}`)
+  $totalDusty.text(`Dusty: ${dusty}`)
+  $totalRancid.text(`Rancid: ${rancid}`)
+}
 
 $(document).ready( () => {
   closeGarage();
