@@ -53,6 +53,16 @@ app.patch('/api/v1/items/:id', (request, response) => {
   }
 });
 
+app.delete('/api/v1/items/:id', (request, response) => {
+  database('items').where('id', request.params.id).delete()
+  .then(() => {
+    response.status(204).send('Deleted');
+  })
+  .catch(() => {
+    response.status(404);
+  });
+});
+
 app.post('/api/v1/items', (request, response) => {
   const { name, reason, cleanliness } = request.body
 
@@ -68,7 +78,6 @@ app.post('/api/v1/items', (request, response) => {
     });
   }
 });
-
 
 if (!module.parent) {
   app.listen(app.get('port'), () => {
