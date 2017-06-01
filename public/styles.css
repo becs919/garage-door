@@ -42,7 +42,7 @@ h2 {
 
 .closed {
   color: black;
-  background-color: #7ACED7;
+  background-color: lightblue;
 }
 
 .open {
@@ -74,7 +74,7 @@ h3 {
   width: 80%;
 }
 
-li {
+#garage-items li {
   list-style-type: none;
   padding: 10px 0px;
   border-bottom: 1px solid brown;
@@ -95,6 +95,7 @@ li p {
 
 .name:hover {
   color: brown;
+  cursor: pointer;
 }
 
 .cleanliness-rating {
@@ -181,4 +182,31 @@ li p {
 .add-new .save-item:hover, .order-button:hover, .date-button:hover, .cleanliness-button:hover {
   background-color: lightgray;
   color: black;
+}
+
+/*INDV ITEMS*/
+#indv-item {
+  display: none;
+  justify-content: center;
+  margin: 0 auto;
+  margin-top: 10px;
+  width: 50%;
+  background-color: lightblue;
+}
+
+#indv-item li {
+  list-style-type: none;
+  padding: 10px 0px;
+  text-align: center;
+}
+
+.name-indv {
+  font-size: 17px;
+  font-weight: 600;
+  padding-bottom: 10px;
+}
+
+.cleanliness-rating-indv, .reason-indv {
+  font-size: 13px;
+  padding: 10px;
 }
