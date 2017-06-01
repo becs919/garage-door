@@ -17,6 +17,23 @@
 
     <button id="garage-button">Open Garage</button>
 
+    <div class="add-new">
+      <label for="name">Name:
+        <input type="text" class="name-input" name="name" />
+      </label>
+      <label for="reason">Reason:
+        <input type="text" class="reason-input" name="reason" />
+      </label>
+      <label id="cleanliness" for="cleanliness">Cleanliness:
+        <select>
+          <option value="Sparkling">Sparkling</option>
+          <option value="Dusty">Dusty</option>
+          <option value="Rancid">Rancid</option>
+        </select>
+      </label>
+      <input type="submit" class="save-item" value="Store Item" />
+    </div>
+
     <div id="garage-count">
       <p class="total-items"></p>
       <p class="total-sparkling"></p>
@@ -26,6 +43,8 @@
 
     <ul id="garage-items">
     </ul>
+
+
 
     <script type="text/javascript" src="./index.js"></script>
    </body>

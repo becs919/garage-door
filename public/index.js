@@ -5,6 +5,7 @@ const $totalItems = $('.total-items')
 const $totalSparkling = $('.total-sparkling')
 const $totalDusty = $('.total-dusty')
 const $totalRancid = $('.total-rancid')
+const $addNew= $('.add-new')
 
 const fetchItems = () => {
   fetch('/api/v1/items')
@@ -13,16 +14,33 @@ const fetchItems = () => {
     appendItems(items);
     appendCount(items);
   })
-  .catch(error => console.log(error))
+  .catch(error => console.error(error))
+};
+
+const postItem = (name, reason, cleanliness) => {
+  fetch('/api/v1/items', {
+    method: 'POST',
+    headers: {'Content-type': 'application/json'},
+    body: JSON.stringify({ name, reason, cleanliness })
+  })
+  .then(response => {
+    if(response.okay) {}
+    fetchItems();
+  })
+  .catch(error => console.error(error))
 };
 
 const closeGarage = () => {
+  $addNew.hide();
+  $garageCount.hide();
   $garageButton.removeClass('open');
   $garageButton.addClass('closed').text('Open Garage');
   $garageItems.empty();
 }
 
 const openGarage = () => {
+  $addNew.show();
+  $garageCount.show();
   $garageButton.removeClass('closed');
   $garageButton.addClass('open').text('Close Garage');
   fetchItems();
@@ -92,3 +110,11 @@ $garageButton.on('click', event => {
     closeGarage();
   }
 });
+
+$('.save-item').on('click', event => {
+  const $name = $('.name-input').val()
+  const $reason = $('.reason-input').val()
+  const $cleanliness = $('#cleanliness option:selected' ).text()
+
+  postItem($name, $reason, $cleanliness)
+})
