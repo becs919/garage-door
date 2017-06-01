@@ -1,14 +1,37 @@
 const $garageButton = $('#garage-button')
-const $garageItems = $('#garage-items')
-const $garageCount = $('#garage-count')
-const $totalItems = $('.total-items')
-const $totalSparkling = $('.total-sparkling')
-const $totalDusty = $('.total-dusty')
-const $totalRancid = $('.total-rancid')
-const $addNew= $('.add-new')
 
 const fetchItems = () => {
   fetch('/api/v1/items')
+  .then(response => response.json())
+  .then(items => {
+    appendItems(items);
+    appendCount(items);
+  })
+  .catch(error => console.error(error))
+};
+
+const fetchItemsABC = () => {
+  fetch('/api/v1/items/asc')
+  .then(response => response.json())
+  .then(items => {
+    appendItems(items);
+    appendCount(items);
+  })
+  .catch(error => console.error(error))
+};
+
+const fetchItemsDate = () => {
+  fetch('/api/v1/items/date')
+  .then(response => response.json())
+  .then(items => {
+    appendItems(items);
+    appendCount(items);
+  })
+  .catch(error => console.error(error))
+};
+
+const fetchItemsCleanliness = () => {
+  fetch('/api/v1/items/cleanliness')
   .then(response => response.json())
   .then(items => {
     appendItems(items);
@@ -30,24 +53,40 @@ const postItem = (name, reason, cleanliness) => {
 };
 
 const closeGarage = () => {
-  $('#error').text('')
-  $addNew.hide();
-  $garageCount.hide();
-  $garageButton.removeClass('open');
   $garageButton.addClass('closed').text('Open Garage');
-  $garageItems.empty();
+  $garageButton.removeClass('open');
+  hideBecauseClosed();
+  clearBecauseEmpty();
+}
+
+const hideBecauseClosed = () => {
+  $('.add-new').hide();
+  $('#garage-count').hide();
+  $('h3').hide();
+  $('.sorting').hide();
+}
+
+const clearBecauseEmpty = () => {
+  $('#error').text('')
+  $('#garage-items').empty();
 }
 
 const openGarage = () => {
-  $addNew.show();
-  $garageCount.show();
   $garageButton.removeClass('closed');
   $garageButton.addClass('open').text('Close Garage');
+  showBecauseOpen();
   fetchItems();
 }
 
+const showBecauseOpen = () => {
+  $('h3').css( "display", "flex" );
+  $('.sorting').css( "display", "flex" );
+  $('.add-new').css( "display", "flex" );
+  $('#garage-count').show();
+}
+
 const appendItems = (items) => {
-  $garageItems.html('');
+  $('#garage-items').html('');
 
   let itemFragments = document.createDocumentFragment();
 
@@ -56,21 +95,19 @@ const appendItems = (items) => {
 
     let name = document.createElement('p');
     name.innerText = item.name;
+    name.classList.add('name')
     name.dataset.itemId = item.id;
-
-    let reason = document.createElement('p');
-    reason.innerText = item.reason;
 
     let cleanliness = document.createElement('p');
     cleanliness.innerText = item.cleanliness;
+    cleanliness.classList.add('cleanliness-rating')
 
     itemElement.appendChild(name);
-    itemElement.appendChild(reason);
     itemElement.appendChild(cleanliness);
     itemFragments.appendChild(itemElement);
   });
 
-  $garageItems.append(itemFragments);
+  $('#garage-items').append(itemFragments);
 };
 
 const appendCount = (items) => {
@@ -82,6 +119,7 @@ const appendCount = (items) => {
   items.forEach(item => {
 
     count++
+
     if (item.cleanliness === 'Sparkling') {
       return sparkling++
     } else if (item.cleanliness === 'Dusty') {
@@ -90,12 +128,15 @@ const appendCount = (items) => {
       return rancid++
     }
   })
-
-  $totalItems.text(`Total Items: ${count}`)
-  $totalSparkling.text(`Sparkling: ${sparkling}`)
-  $totalDusty.text(`Dusty: ${dusty}`)
-  $totalRancid.text(`Rancid: ${rancid}`)
+  renderCount(count, sparkling, dusty, rancid)
 };
+
+const renderCount = (count, sparkling, dusty, rancid) => {
+  $('.total-items').text(`Total Items: ${count}`)
+  $('.total-sparkling').text(`Sparkling: ${sparkling}`)
+  $('.total-dusty').text(`Dusty: ${dusty}`)
+  $('.total-rancid').text(`Rancid: ${rancid}`)
+}
 
 const clearForm = () => {
   const $name = $('.name-input').val('')
@@ -130,3 +171,18 @@ $('.save-item').on('click', event => {
     clearForm();
   }
 });
+
+$('.order-button').on('click', event => {
+  // janky - need to fix. ABC all new but not seeded data
+  fetchItemsABC();
+})
+
+$('.date-button').on('click', event => {
+  // janky - need to fix. ABC all new but not seeded data
+  fetchItemsDate();
+})
+
+$('.cleanliness-button').on('click', event => {
+  // janky - need to fix. ABC all new but not seeded data
+  fetchItemsCleanliness();
+})
