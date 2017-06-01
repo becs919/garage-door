@@ -94,7 +94,7 @@ li p {
   outline: none;
 }
 
-.add-new .save-item, .order-button, .date-button {
+.add-new .save-item, .order-button, .date-button, .cleanliness-button {
   display: flex;
   margin: 20px auto;
   padding: 10px;
@@ -110,13 +110,13 @@ li p {
   display: flex;
 }
 
-.add-new .save-item:active, .order-button:active, .date-button:active {
+.add-new .save-item:active, .order-button:active, .date-button:active, .cleanliness-button:active {
 	transform: translate(0px,2px);
 	border-bottom: 1px solid white;
   transition: all 0.1s;
 }
 
-.add-new .save-item:hover, .order-button:hover, .date-button:hover {
+.add-new .save-item:hover, .order-button:hover, .date-button:hover, .cleanliness-button:hover {
   background-color: lightgray;
   color: black;
 }

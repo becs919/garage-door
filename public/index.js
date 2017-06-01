@@ -37,6 +37,16 @@ const fetchItemsDate = () => {
   .catch(error => console.error(error))
 };
 
+const fetchItemsCleanliness = () => {
+  fetch('/api/v1/items/cleanliness')
+  .then(response => response.json())
+  .then(items => {
+    appendItems(items);
+    appendCount(items);
+  })
+  .catch(error => console.error(error))
+};
+
 const postItem = (name, reason, cleanliness) => {
   fetch('/api/v1/items', {
     method: 'POST',
@@ -153,4 +163,9 @@ $('.order-button').on('click', event => {
 $('.date-button').on('click', event => {
   // janky - need to fix. ABC all new but not seeded data
   fetchItemsDate();
+})
+
+$('.cleanliness-button').on('click', event => {
+  // janky - need to fix. ABC all new but not seeded data
+  fetchItemsCleanliness();
 })
