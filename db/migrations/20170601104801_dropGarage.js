@@ -1,0 +1,23 @@
+exports.up = function (knex, Promise) {
+  return Promise.all([
+    knex.schema.table('items', function (table) {
+      table.dropColumn('garage_id')
+    }),
+    knex.schema.dropTable('garage')
+  ])
+}
+
+exports.down = function (knex, Promise) {
+  return Promise.all([
+    knex.schema.createTable('garage', function (table) {
+      table.increments('id').primary()
+      table.string('name')
+      table.timestamps(true, true)
+    }),
+    knex.schema.table('items', function (table) {
+      table.integer('garage_id').unsigned()
+      table.foreign('garage_id')
+      .references('garage.id')
+    })
+  ])
+}
