@@ -1,4 +1,5 @@
 body {
+  height: 100vh;
   margin: 0 auto;
   background: white;
   font-family: 'Raleway', sans-serif;
@@ -93,6 +94,7 @@ li p {
 .add-new label {
   font-size: 13px;
   color: black;
+  padding-left: 8px;
 }
 
 .add-new select {
@@ -103,7 +105,7 @@ li p {
   outline: none;
 }
 
-.add-new .save-item, .order-button, .date-button, .cleanliness-button {
+.add-new .save-item, .order-button, .date-button, .cleanliness-button  {
   display: flex;
   margin: 20px auto;
   padding: 10px;
@@ -167,4 +169,8 @@ li p {
 
 .name:hover {
   color: brown;
+}
+
+.cleanliness-rating {
+  font-size: 13px;
 }

@@ -100,6 +100,7 @@ const appendItems = (items) => {
 
     let cleanliness = document.createElement('p');
     cleanliness.innerText = item.cleanliness;
+    cleanliness.classList.add('cleanliness-rating')
 
     itemElement.appendChild(name);
     itemElement.appendChild(cleanliness);
@@ -118,6 +119,7 @@ const appendCount = (items) => {
   items.forEach(item => {
 
     count++
+
     if (item.cleanliness === 'Sparkling') {
       return sparkling++
     } else if (item.cleanliness === 'Dusty') {
@@ -126,12 +128,15 @@ const appendCount = (items) => {
       return rancid++
     }
   })
+  renderCount(count, sparkling, dusty, rancid)
+};
 
+const renderCount = (count, sparkling, dusty, rancid) => {
   $('.total-items').text(`Total Items: ${count}`)
   $('.total-sparkling').text(`Sparkling: ${sparkling}`)
   $('.total-dusty').text(`Dusty: ${dusty}`)
   $('.total-rancid').text(`Rancid: ${rancid}`)
-};
+}
 
 const clearForm = () => {
   const $name = $('.name-input').val('')
