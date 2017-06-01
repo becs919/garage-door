@@ -30,6 +30,7 @@ const postItem = (name, reason, cleanliness) => {
 };
 
 const closeGarage = () => {
+  $('#error').text('')
   $addNew.hide();
   $garageCount.hide();
   $garageButton.removeClass('open');
@@ -73,8 +74,6 @@ const appendItems = (items) => {
 };
 
 const appendCount = (items) => {
-  // $garageCount.empty();
-
   let count = 0;
   let sparkling = 0;
   let dusty = 0;
@@ -96,7 +95,12 @@ const appendCount = (items) => {
   $totalSparkling.text(`Sparkling: ${sparkling}`)
   $totalDusty.text(`Dusty: ${dusty}`)
   $totalRancid.text(`Rancid: ${rancid}`)
-}
+};
+
+const clearForm = () => {
+  const $name = $('.name-input').val('')
+  const $reason = $('.reason-input').val('')
+};
 
 $(document).ready( () => {
   closeGarage();
@@ -119,8 +123,10 @@ $('.save-item').on('click', event => {
     console.log('no lanem');
     $('#error').text('Error: No Name')
   } else if ( $reason.length <= 0) {
-    $('#error').text('Error: reason')
+    $('#error').text('Error: No Reason')
   } else {
+    $('#error').text('')
     postItem($name, $reason, $cleanliness)
+    clearForm();
   }
-})
+});
