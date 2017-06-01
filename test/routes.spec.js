@@ -123,6 +123,79 @@ describe('Everything', () => {
       });
     });
 
+    describe('PATCH /api/v1/items/:id', () => {
+      it('should update items cleanliness', (done) => {
+        chai.request(server)
+        .patch('/api/v1/items/1')
+        .send(
+          {
+            cleanliness: 'Sparkling',
+          })
+        .end((error, response) => {
+          response.should.have.status(200);
+          chai.request(server)
+          .get('/api/v1/items')
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('array');
+          res.body.length.should.equal(3);
+          res.body[0].should.have.property('cleanliness');
+          res.body[0].cleanliness.should.equal('Sparkling');
+          done();
+        });
+        });
+      });
+
+      it('should not patch a record with missing data', (done) => {
+        chai.request(server)
+        .patch('/api/v1/items/1')
+        .send({})
+        .end((err, response) => {
+          (response.status === 404).should.equal(true);
+          done();
+        });
+      });
+
+      it('should not patch a record with data other than cleanliness', (done) => {
+        chai.request(server)
+        .patch('/api/v1/items/1')
+        .send({
+          name: "Cats",
+          reason: "Because"
+        })
+        .end((err, response) => {
+          (response.status === 404).should.equal(true);
+          done();
+        });
+      });
+    });
+
+    describe('DELETE /api/v1/items/:id', () => {
+      it('should delete item by id', (done) => {
+        chai.request(server)
+        .delete('/api/v1/items/2')
+        .end((error, response) => {
+          response.should.have.status(204);
+          chai.request(server)
+          .get('/api/v1/items')
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('array');
+          res.body.length.should.equal(2);
+          done();
+        });
+        });
+      });
+
+      it('should return error when no item to delete', (done) => {
+        chai.request(server)
+        .delete('/api/v1/items/')
+        .end((error, response) => {
+          response.should.have.status(404);
+          done();
+        });
+      });
+    });
 
   });
 });
