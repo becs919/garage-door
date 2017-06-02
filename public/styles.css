@@ -5,6 +5,7 @@ body {
   font-family: 'Raleway', sans-serif;
 }
 
+/*HEADER*/
 header {
   display: flex;
   justify-content: center;
@@ -27,15 +28,7 @@ h2 {
   font-weight: 300;
 }
 
-h3 {
-  display: none;
-  justify-content: center;
-  font-size: 25px;
-  text-decoration: underline;
-  font-weight: 600;
-  margin-bottom: 30px;
-}
-
+/*GARAGE BUTTON*/
 #garage-button {
   display: flex;
   margin: 20px auto;
@@ -49,7 +42,7 @@ h3 {
 
 .closed {
   color: black;
-  background-color: #7ACED7;
+  background-color: lightblue;
 }
 
 .open {
@@ -63,13 +56,24 @@ h3 {
   transition: all 0.1s;
 }
 
+/*GARAGE NAME*/
+h3 {
+  display: none;
+  justify-content: center;
+  font-size: 25px;
+  text-decoration: underline;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+/*GARAGE ITEMS*/
 #garage-items {
   margin: 0 auto;
   margin-top: 10px;
   width: 80%;
 }
 
-li {
+#garage-items li {
   list-style-type: none;
   padding: 10px 0px;
   border-bottom: 1px solid brown;
@@ -79,6 +83,31 @@ li {
 li p {
   margin: 0px;
   position: relative;
+}
+
+.name {
+  font-size: 17px;
+  text-decoration: underline;
+  font-weight: 600;
+  padding-bottom: 10px;
+}
+
+.name:hover {
+  color: brown;
+  cursor: pointer;
+}
+
+.cleanliness-rating {
+  font-size: 13px;
+}
+
+/*FORM FOR ADDING NEW ITEM*/
+#error {
+  margin-top: -50px;
+  color: red;
+  background-color: #ffe5e5;
+  width: 80%;
+  margin: 10px auto;
 }
 
 .add-new {
@@ -105,6 +134,27 @@ li p {
   outline: none;
 }
 
+.add-new input {
+  padding: 3px;
+  margin: 3px;
+  border: 1px solid black;
+  outline: none;
+}
+
+.add-new p {
+  color: brown;
+  font-weight: 600;
+  font-size: 22px;
+  padding-right: 5%;
+}
+
+/*COUNT OF ITEMS*/
+#garage-count {
+  display: flex;
+  justify-content: space-around;
+}
+
+/*BUTTONS*/
 .add-new .save-item, .order-button, .date-button, .cleanliness-button  {
   display: flex;
   margin: 20px auto;
@@ -133,44 +183,53 @@ li p {
   color: black;
 }
 
-.add-new input {
-  padding: 3px;
-  margin: 3px;
-  border: 1px solid black;
-  outline: none;
+/*INDV ITEMS*/
+#indv-item {
+  display: none;
+  justify-content: center;
+  margin: 0 auto;
+  margin-top: 10px;
+  width: 50%;
+  background-color: lightblue;
+  align-items: center;
 }
 
-.add-new p {
-  color: brown;
-  font-weight: 600;
-  font-size: 22px;
-  padding-right: 5%;
+#indv-item li {
+  list-style-type: none;
+  padding: 10px 0px;
+  text-align: center;
 }
 
-#garage-count {
-  display: flex;
-  justify-content: space-around;
-}
-
-#error {
-  margin-top: -50px;
-  color: red;
-  background-color: #ffe5e5;
-  width: 80%;
-  margin: 10px auto;
-}
-
-.name {
+.name-indv {
   font-size: 17px;
-  text-decoration: underline;
   font-weight: 600;
   padding-bottom: 10px;
 }
 
-.name:hover {
-  color: brown;
+.cleanliness-rating-indv, .reason-indv {
+  font-size: 13px;
+  padding: 10px;
 }
 
-.cleanliness-rating {
-  font-size: 13px;
+.cleanliness-rating-indv:hover {
+  cursor: pointer;
+}
+
+.change-cleanliness {
+  margin: 2px;
+  padding: 5px;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  border-bottom: 2px solid black;
+  background-color: brown;
+  color: white;
+}
+
+#indv-item select {
+  width: 85px;
+  height: 20px;
+  margin: 3px;
+  border: 1px solid black;
+  outline: none;
 }

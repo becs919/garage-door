@@ -10,6 +10,17 @@ const fetchItems = () => {
   .catch(error => console.error(error))
 };
 
+const fetchItemById = (id) => {
+  fetch(`/api/v1/items/${id}`)
+  .then(response => response.json())
+  .then(items => {
+    console.log(items);
+    appendIndvItem(items);
+    appendChangeCleanliness(items);
+  })
+  .catch(error => console.error(error))
+};
+
 const fetchItemsABC = () => {
   fetch('/api/v1/items/asc')
   .then(response => response.json())
@@ -64,6 +75,7 @@ const hideBecauseClosed = () => {
   $('#garage-count').hide();
   $('h3').hide();
   $('.sorting').hide();
+  $('#indv-item').hide();
 }
 
 const clearBecauseEmpty = () => {
@@ -79,10 +91,11 @@ const openGarage = () => {
 }
 
 const showBecauseOpen = () => {
-  $('h3').css( "display", "flex" );
-  $('.sorting').css( "display", "flex" );
-  $('.add-new').css( "display", "flex" );
+  $('h3').css( 'display', 'flex' );
+  $('.sorting').css( 'display', 'flex' );
+  $('.add-new').css( 'display', 'flex' );
   $('#garage-count').show();
+  $('#indv-item').css('display', 'flex')
 }
 
 const appendItems = (items) => {
@@ -108,6 +121,37 @@ const appendItems = (items) => {
   });
 
   $('#garage-items').append(itemFragments);
+};
+
+const appendIndvItem = (items) => {
+  $('#indv-item').html('');
+
+  let indvItemFrag = document.createDocumentFragment();
+
+  items.forEach(item => {
+    let indvItemElement = document.createElement('li');
+
+    let name = document.createElement('p');
+    name.innerText = item.name;
+    name.classList.add('name-indv')
+    name.dataset.itemId = item.id;
+
+    let reason = document.createElement('p');
+    reason.innerText = `Reason: ${item.reason}`;
+    reason.classList.add('reason-indv')
+    reason.dataset.itemId = item.id;
+
+    let cleanliness = document.createElement('p');
+    cleanliness.innerText = `Cleanliness: ${item.cleanliness}`;
+    cleanliness.classList.add('cleanliness-rating-indv')
+
+    indvItemElement.appendChild(name);
+    indvItemElement.appendChild(reason);
+    indvItemElement.appendChild(cleanliness);
+    indvItemFrag.appendChild(indvItemElement);
+  });
+
+  $('#indv-item').append(indvItemFrag);
 };
 
 const appendCount = (items) => {
@@ -173,16 +217,31 @@ $('.save-item').on('click', event => {
 });
 
 $('.order-button').on('click', event => {
-  // janky - need to fix. ABC all new but not seeded data
   fetchItemsABC();
 })
 
 $('.date-button').on('click', event => {
-  // janky - need to fix. ABC all new but not seeded data
   fetchItemsDate();
 })
 
 $('.cleanliness-button').on('click', event => {
-  // janky - need to fix. ABC all new but not seeded data
   fetchItemsCleanliness();
 })
+
+$('#garage-items').on('click', '.name', event => {
+  let id = event.target.dataset.itemId;
+  fetchItemById(id);
+})
+
+const appendChangeCleanliness = (items) => {
+  $('#indv-item').append(
+    `<label id="cleanliness-change" for="cleanliness">
+      <select>
+        <option value="Sparkling">Sparkling</option>
+        <option value="Dusty">Dusty</option>
+        <option value="Rancid">Rancid</option>
+      </select>
+    </label>
+    <input type="submit" value="Update"class="change-cleanliness"/>`
+  );
+}
