@@ -14,7 +14,6 @@ const fetchItemById = (id) => {
   fetch(`/api/v1/items/${id}`)
   .then(response => response.json())
   .then(items => {
-    console.log(items)
     appendIndvItem(items)
     appendChangeCleanliness(items)
   })
