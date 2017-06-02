@@ -16,9 +16,7 @@ const fetchItemById = (id) => {
   .then(items => {
     console.log(items);
     appendIndvItem(items);
-    // make sure to update count and append when patched!
-    // appendItems(items);
-    // appendCount(items);
+    appendChangeCleanliness(items);
   })
   .catch(error => console.error(error))
 };
@@ -219,17 +217,14 @@ $('.save-item').on('click', event => {
 });
 
 $('.order-button').on('click', event => {
-  // janky - need to fix. ABC all new but not seeded data
   fetchItemsABC();
 })
 
 $('.date-button').on('click', event => {
-  // janky - need to fix. ABC all new but not seeded data
   fetchItemsDate();
 })
 
 $('.cleanliness-button').on('click', event => {
-  // janky - need to fix. ABC all new but not seeded data
   fetchItemsCleanliness();
 })
 
@@ -237,3 +232,16 @@ $('#garage-items').on('click', '.name', event => {
   let id = event.target.dataset.itemId;
   fetchItemById(id);
 })
+
+const appendChangeCleanliness = (items) => {
+  $('#indv-item').append(
+    `<label id="cleanliness-change" for="cleanliness">
+      <select>
+        <option value="Sparkling">Sparkling</option>
+        <option value="Dusty">Dusty</option>
+        <option value="Rancid">Rancid</option>
+      </select>
+    </label>
+    <input type="submit" value="Update"class="change-cleanliness"/>`
+  );
+}
